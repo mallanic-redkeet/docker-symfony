@@ -1,0 +1,11 @@
+#/bin/sh
+
+. /opt/docker-symfony/bin/get-id php
+
+if [ "$#" -ne 1 ]; then
+	ARGUMENT="/bin/sh"
+else
+	ARGUMENT="/bin/sh -c $@"
+fi
+
+docker exec -it $DOCKER_ID $ARGUMENT

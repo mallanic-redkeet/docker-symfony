@@ -1,0 +1,4 @@
+#/bin/sh
+
+DOCKER_ID=$(docker ps | grep _$1_ | cut -d' ' -f1)
+export DOCKER_ID

@@ -1,0 +1,5 @@
+#/bin/sh
+
+. /opt/docker-symfony/bin/get-id php
+
+docker exec -i $DOCKER_ID /bin/sh -c "cd /var/www/symfony && bin/console $1"

@@ -14,8 +14,10 @@ services:
         expose:
             - "9000"
         volumes:
-            - ./symfony:/var/www/symfony
-            - ./logs/symfony:/var/www/symfony/app/logs
+            - "${DOCKER_DIR}:/var/www/symfony"
+        tmpfs:
+            - /tmp
+            - /var/www/symfony/var/cache/dev
         links:
             - db
     nginx:
@@ -26,15 +28,11 @@ services:
             - php
         volumes_from:
             - php
-        volumes:
-            - ./logs/nginx/:/var/log/nginx
-    elk:
-        image: willdurand/elk
+    phpmyadmin:
+        build: ./phpmyadmin
         ports:
-            - "81:80"
-        volumes:
-            - ./elk/logstash:/etc/logstash
-            - ./elk/logstash/patterns:/opt/logstash/patterns
-        volumes_from:
-            - php
-            - nginx
+            - "82:80"
+        environment:
+            PMA_HOST: db
+            PMA_USER: root
+            PMA_PASSWORD: root

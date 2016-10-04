@@ -1,0 +1,4 @@
+#/bin/sh
+
+. /opt/docker-symfony/bin/get-id db
+docker exec -i $DOCKER_ID mysql -uroot -proot $1 < $DOCKER_DIR"/$2"
