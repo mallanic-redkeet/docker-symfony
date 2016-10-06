@@ -9,25 +9,18 @@ services:
             MYSQL_DATABASE: symfony
             MYSQL_USER: symfony
             MYSQL_PASSWORD: symfony
-    php:
-        build: ./php-fpm
-        expose:
-            - "9000"
+    server:
+        build: ./server
+        ports:
+            - "80:80"
+        links:
+            - db
         volumes:
             - "${DOCKER_DIR}:/var/www/symfony"
         tmpfs:
             - /tmp
-            - /var/www/symfony/var/cache/dev
-        links:
-            - db
-    nginx:
-        build: ./nginx
-        ports:
-            - "80:80"
-        links:
-            - php
-        volumes_from:
-            - php
+            - /var/www/symfony/var/cache
+            - /var/run
     phpmyadmin:
         build: ./phpmyadmin
         ports:

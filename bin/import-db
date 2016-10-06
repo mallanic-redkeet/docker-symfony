@@ -1,4 +1,4 @@
 #/bin/sh
 
 . /opt/docker-symfony/bin/get-id db
-docker exec -i $DOCKER_ID mysql -uroot -proot $1 < $DOCKER_DIR"/$2"
+docker exec -i $DOCKER_ID mysql -uroot -proot --max_allowed_packet=2G $1 < $DOCKER_DIR"/$2"
